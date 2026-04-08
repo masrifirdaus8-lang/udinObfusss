@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UDIN OBFUS | PREMIUM PROTECTION</title>
+    <style>
+        :root {
+            --red: #ff0000;
+            --black: #050505;
+            --gray: #111;
+        }
+
+        body {
+            background-color: var(--black);
+            color: #fff;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 850px;
+            background: var(--gray);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #222;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: var(--red);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+        }
+
+        .label {
+            font-size: 11px;
+            color: var(--red);
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        textarea {
+            width: 100%;
+            height: 180px;
+            background: #000;
+            color: #00ff00;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: monospace;
+            resize: none;
+            outline: none;
+            margin-bottom: 20px;
+        }
+
+        textarea:focus { border-color: var(--red); }
+
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .btn-obfus { background: var(--red); color: #fff; }
+        .btn-obfus:hover { background: #b30000; transform: scale(1.02); }
+
+        .btn-copy { background: #222; color: #ccc; border: 1px solid #444; }
+        .btn-copy:hover { background: #333; color: #fff; }
+
+        footer { text-align: center; font-size: 11px; color: #444; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>UDIN OBFUS</h1>
+    
+    <span class="label">INPUT SCRIPT</span>
+    <textarea id="input" placeholder="Paste script asli di sini..."></textarea>
+
+    <div class="btn-group">
+        <button class="btn-obfus" onclick="run()">OBFUSCATE</button>
+        <button class="btn-copy" id="cpBtn" onclick="copy()">COPY RESULT</button>
+    </div>
+
+    <span class="label">OUTPUT (NGASAL CODE)</span>
+    <textarea id="output" readonly placeholder="Hasil akan muncul di sini..."></textarea>
+    
+    <footer>OFFICIAL UDINOBFUS.COM PROTECTION</footer>
+</div>
+
+<script>
+    function run() {
+        const input = document.getElementById('input').value;
+        if (!input) return alert("Masukkan kode!");
+
+        // Logika Obfuscate Ngasal (Base64 + Hex + Wrapper)
+        const encoded = btoa(unescape(encodeURIComponent(input)));
+        const randomVar = "_0x" + Math.random().toString(36).substring(7);
+        
+        const result = `/* OBFUSCATED BY UDIN OBFUS */\n` +
+                       `var ${randomVar} = ["\\x61\\x74\\x6f\\x62", "\\x64\\x65\\x63\\x6f\\x64\\x65\\x55\\x52\\x49\\x43\\x6f\\x6d\\x70\\x6f\\x6e\\x65\\x6e\\x74"];\n` +
+                       `(function(){ var _0x1 = function(_0x2){ return window[${randomVar}[0]](_0x2) };\n` +
+                       `var _0x3 = decodeURIComponent(escape(_0x1("${encoded}")));\n` +
+                       `eval(_0x3); })();`;
+
+        document.getElementById('output').value = result;
+    }
+
+    function copy() {
+        const out = document.getElementById('output');
+        const btn = document.getElementById('cpBtn');
+        if (!out.value) return;
+
+        out.select();
+        document.execCommand('copy');
+        
+        btn.innerText = "COPIED!";
+        btn.style.color = "#ff0000";
+        setTimeout(() => {
+            btn.innerText = "COPY RESULT";
+            btn.style.color = "#ccc";
+        }, 2000);
+    }
+</script>
+
+</body>
+</html>
